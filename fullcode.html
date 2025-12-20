@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Math Calculator</title>
+    <style>
+        /* Styling for the entire page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a; /* Dark background for the page */
+            color: #e0e0e0; /* Light text color for contrast */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Styling for the calculator container */
+        .calculator {
+            background-color: #333333; /* Darker background for the calculator */
+            border-radius: 10px;
+            padding: 20px;
+            padding-top: 0; /* Adjust padding since .no-bg adds its own */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Adds a shadow for depth */
+            background-size: cover; /* Ensures any background image covers the area */
+        }
+
+        /* New container to isolate background */
+        .no-bg {
+            background-color: #00000036; /* Match the calculator's background */
+            border-radius: 5px 5px 0 0; /* Rounded corners only at the top */
+            padding: 5px 0; /* Space above and below for aesthetics */
+            margin-bottom: 5px; /* Space from the calculator display */
+            padding: 5px 200px;
+            
+        }
+
+        /* Styling for the calculator display */
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-align: right;
+            background-color: #2b2b2b; /* Dark background for display */
+            color: #ffffff; /* White text for visibility */
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        /* Grid layout for buttons */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        /* General button styling */
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            background-color: #4040407b; /* Semi-transparent dark background */
+            border: none;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.2s; /* Smooth transition for hover effect */
+            border-radius: 5px;
+        }
+
+        /* Hover effect for buttons */
+        button:hover {
+            background-color: #000000; /* Black on hover for contrast */
+        }
+
+        /* Styling for the file input (which is hidden) */
+        #bgImage {
+            margin-bottom: 10px;
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+
+        /* Custom button for file selection */
+        #bgImage + label {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #4040407b;
+            color: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background-color 0.2s;
+        }
+
+        /* Hover effect for the file selection button */
+        #bgImage + label:hover {
+            background-color: #505050;
+        }
+
+        /* Styling for the 'Set Background' button */
+        #setBgButton {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        /* Style for the brand name */
+        .brand-name {
+            color: #ffffff;
+            font-size: 1.9em;
+            margin-right: 10px;
+            vertical-align: middle;
+            background-color: rgba(255, 255, 255, 0.11);
+            border-radius: 10px;
+            padding: 2px 5px;
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+           
+           
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+        <div class="no-bg">
+            <!-- Add your brand name here -->
+            <span class="brand-name">LASI</span>
+            <input type="file" id="bgImage" accept="image/*">
+            <label for="bgImage">Choose file</label>
+            <!-- Button to set the selected image as background -->
+            <button id="setBgButton" onclick="setBackground()">Set Background</button>
+        </div>
+        <!-- Display area for calculator input and results -->
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <!-- Basic operations buttons -->
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            
+            <!-- Advanced operations buttons -->
+            <button onclick="appendToDisplay('^')">^</button>
+            <button onclick="appendToDisplay('sqrt(')">√</button>
+            <button onclick="appendToDisplay('(')">(</button>
+            <button onclick="appendToDisplay(')')">)</button>
+            <button onclick="appendToDisplay('!=')">≠</button>
+            <button onclick="appendToDisplay('>=')">≥</button>
+            <button onclick="appendToDisplay('<=')">≤</button>
+            <button onclick="appendToDisplay('>')">></button>
+            <button onclick="appendToDisplay('<')"><</button>
+            <button onclick="appendToDisplay('mod')">mod</button>
+            <button onclick="appendToDisplay('%')">%</button>
+        </div>
+    </div>
+    <script>
+        // Get reference to the display element
+        let display = document.getElementById('display');
+
+        // Function to append input to display
+        function appendToDisplay(value) {
+            display.value += value;
+        }
+
+        // Function to clear the display
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        // Function to calculate and display result
+        function calculate() {
+            try {
+                // Convert != to !==, >= to >=, <= to <= for JS compatibility
+                let expression = display.value.replace(/!=/g, '!==').replace(/>=/g, '>=').replace(/<=/g, '<=');
+                // Replace 'mod' with '%' for JS modulo operation
+                expression = expression.replace(/mod/g, '%');
+                // Replace '^' with '**' for exponentiation in JS
+                expression = expression.replace(/\^/g, '**');
+                // Handle square root
+                expression = expression.replace(/sqrt\(([^)]+)\)/g, 'Math.sqrt($1)');
+                
+                // Use eval for simplicity (note: not recommended for production due to security risks)
+                let result = eval(expression);
+                if (isNaN(result) || !isFinite(result)) {
+                    display.value = 'Error';
+                } else {
+                    display.value = result;
+                }
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+
+        // Function to set calculator background
+        function setBackground() {
+            const file = document.getElementById('bgImage').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const bgImage = e.target.result;
+                    document.querySelector('.calculator').style.backgroundImage = `url(${bgImage})`;
+                    document.querySelector('.calculator').style.backgroundSize = 'cover';
+                    // Save image to local storage for persistence
+                    localStorage.setItem('calculatorBg', bgImage);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Check for saved background on page load
+        window.onload = function() {
+            const savedBg = localStorage.getItem('calculatorBg');
+            if (savedBg) {
+                document.querySelector('.calculator').style.backgroundImage = `url(${savedBg})`;
+                document.querySelector('.calculator').style.backgroundSize = 'cover';
+            }
+        };
+    </script>
+</body>
+</html>
