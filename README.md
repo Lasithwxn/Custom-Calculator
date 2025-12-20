@@ -1,35 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Here’s a clean, updated README for your calculator project. I’ve tailored it to be specific to your project, removing the generic Next.js boilerplate and adding your GitHub Pages link:
+
+---
+
+# Custom Calculator
+
+A simple and interactive **Custom Calculator** built with HTML, CSS, and JavaScript. This project allows users to perform basic arithmetic operations with a clean and user-friendly interface.
+
+You can view the live calculator here: [Custom Calculator Live Demo](https://lasithwxn.github.io/Custom-Calculator/fullcode.html)
+
+## Features
+
+* Addition, subtraction, multiplication, and division
+* Clear and delete functions
+* Responsive design for desktop and mobile
+* Lightweight and fast
 
 ## Getting Started
 
-First, run the development server:
+To run this project locally:
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/LasithWXN/Custom-Calculator.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Open the `fullcode.html` file in your browser:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd Custom-Calculator
+open fullcode.html
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Start using your calculator.
+
+## Technologies Used
+
+* HTML5
+* CSS3
+* JavaScript (ES6)
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+* [JavaScript Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+* [HTML Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML)
+* [CSS Documentation](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-## Deploy on Vercel
+This project is open-source and available under the MIT License.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
