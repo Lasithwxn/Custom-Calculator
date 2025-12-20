@@ -1,4 +1,3 @@
-Here’s a clean, updated README for your calculator project. I’ve tailored it to be specific to your project, removing the generic Next.js boilerplate and adding your GitHub Pages link:
 
 ---
 
