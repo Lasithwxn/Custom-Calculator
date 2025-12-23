@@ -1,3 +1,7 @@
 export default function Home() {
-  return <h1>Custom Calculator</h1>;
+  return (
+    <div style={{ padding: 40 }}>
+      <h1>It works ✅</h1>
+    </div>
+  );
 }
