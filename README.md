@@ -5,6 +5,7 @@
 
 A simple and interactive **Custom Calculator** built with HTML, CSS, and JavaScript. This project allows users to perform basic arithmetic operations with a clean and user-friendly interface.
 
+You can view the live calculator here: [Custom Calculator Live Demo](https://lasithwxn.github.io/Custom-Calculator/)
 You can view the live calculator here: [Custom Calculator Live Demo](https://lasithwxn.github.io/Custom-Calculator/fullcode.html)
 
 ## Features
