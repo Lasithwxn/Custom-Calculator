@@ -8,7 +8,6 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -31,6 +30,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full clone to ensure app/pages directories are fetched
+      - name: Debug: Verify project structure after checkout
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Root files and folders:"
+          ls -la
+          echo "App directory contents:"
+          ls -la app || echo "App directory missing - check branch/files"
+          echo "Pages directory contents (if using Pages Router):"
+          ls -la pages || echo "Pages directory missing or not used"
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -57,7 +67,7 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
+          # server side image optimization[](https://nextjs.org/docs/api-reference/next/image#unoptimized).
           #
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
@@ -75,10 +85,25 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      - name: Debug: Verify build output
+        run: |
+          echo "Build complete. Checking output directories:"
+          echo "Root files after build:"
+          ls -la
+          echo "Out directory (for static export):"
+          if [ -d "./out" ]; then
+            ls -la out
+            echo "Out exists - ready for upload"
+          else
+            echo "WARNING: ./out missing - ensure next.config.ts has output: 'export'"
+          fi
+          echo ".next directory (for server build):"
+          ls -la .next || echo ".next not found"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
+          retention-days: 1
 
   # Deployment job
   deploy:
