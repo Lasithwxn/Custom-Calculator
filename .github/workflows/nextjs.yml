@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full clone to ensure app/pages directories are fetched
+          fetch-depth: 0  # Full clone to fetch all files/directories
       - name: Debug: Verify project structure after checkout
         run: |
           echo "Current directory: $(pwd)"
@@ -39,7 +39,7 @@ jobs:
           ls -la
           echo "App directory contents:"
           ls -la app || echo "App directory missing - check branch/files"
-          echo "Pages directory contents (if using Pages Router):"
+          echo "Pages directory (if using Pages Router):"
           ls -la pages || echo "Pages directory missing or not used"
       - name: Detect package manager
         id: detect-package-manager
@@ -103,7 +103,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
-          retention-days: 1
+          retention-days: 1  # Keep artifacts for 1 day
 
   # Deployment job
   deploy:
